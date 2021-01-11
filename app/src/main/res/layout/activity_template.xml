@@ -14,6 +14,7 @@
         android:hint="Subject Text"
         android:id="@+id/subject_text"
         android:padding="12dp"
+        android:layout_marginBottom="5dp"
         android:background="@android:drawable/editbox_background" />
 
     <EditText
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bt_add"
+            android:layout_marginRight="2dp"
             android:text="Add" />
 
         <Button

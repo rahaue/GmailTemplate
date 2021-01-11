@@ -47,9 +47,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         database = RoomDB.getInstance(context);
 
         // Set Text on text View
-        holder.textView.setText(data.getText());
+        // ここでセットするといい
+        holder.textView.setText(data.getSubject());
 
 
+        // 編集ボタンクリック
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +61,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 // get id
                 int sID = d.getID();
                 // get text
+                // 変更点
                 String sText = d.getText();
                 // create dialog
                 Dialog dialog = new Dialog(context);
@@ -66,7 +69,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 dialog.setContentView(R.layout.dialog_update);
                 // initialize width
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
-
                 // height
                 int height = WindowManager.LayoutParams.WRAP_CONTENT;
 
@@ -106,6 +108,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             }
         });
 
+        // 削除ボタンをクリックした時
         holder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,19 +130,21 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     }
 
+
     @Override
     public int getItemCount() {
         return dataList.size();
     }
 
+    // ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         // initialize valiable
-        TextView textView;
+        TextView textView, subjectView;
         ImageView btEdit, btDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            subjectView = itemView.findViewById(R.id.subject_text);
             textView = itemView.findViewById(R.id.text_view);
             btEdit = itemView.findViewById(R.id.bt_edit);
             btDelete = itemView.findViewById(R.id.bt_delete);
