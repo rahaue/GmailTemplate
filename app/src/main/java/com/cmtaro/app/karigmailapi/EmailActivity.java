@@ -43,10 +43,18 @@ public class EmailActivity extends AppCompatActivity {
         etMessage = findViewById(R.id.et_message);
         btSend = findViewById(R.id.bt_send);
 
-
+        // Emailとパスワード
         SharedPreferences preferences = getSharedPreferences("personal_data",MODE_PRIVATE);
         String email = preferences.getString("email", "");
         String password = preferences.getString("password", "");
+
+        // SubjectとText
+        Intent intent = getIntent();
+        String subject = intent.getStringExtra("subject");
+        String text = intent.getStringExtra("text");
+
+        etSubject.setText(subject);
+        etMessage.setText(text);
 
         // GOOGLEのアカウントを以下に記入
         sEmail = email; //your email

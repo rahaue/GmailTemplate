@@ -2,6 +2,7 @@ package com.cmtaro.app.karigmailapi;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
@@ -63,7 +66,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 // get id
                 int sID = d.getID();
                 // get text
-                // 変更点
                 String sText = d.getText();
                 // create dialog
                 Dialog dialog = new Dialog(context);
@@ -134,8 +136,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // vでOKです
+                MainData d = dataList.get(holder.getAdapterPosition());
+
                 Context context = v.getContext();
                 Intent intent = new Intent(context, EmailActivity.class);
+                String sSubject = d.getSubject();
+                String sText = d.getText();
+                intent.putExtra("text", sText);
+                intent.putExtra("subject", sSubject);
                 context.startActivity(intent);
             }
         });
