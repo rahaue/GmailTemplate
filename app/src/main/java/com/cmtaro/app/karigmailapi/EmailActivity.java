@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -42,9 +43,10 @@ public class EmailActivity extends AppCompatActivity {
         etMessage = findViewById(R.id.et_message);
         btSend = findViewById(R.id.bt_send);
 
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        String password = intent.getStringExtra("password");
+
+        SharedPreferences preferences = getSharedPreferences("personal_data",MODE_PRIVATE);
+        String email = preferences.getString("email", "");
+        String password = preferences.getString("password", "");
 
         // GOOGLEのアカウントを以下に記入
         sEmail = email; //your email

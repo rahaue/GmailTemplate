@@ -2,6 +2,7 @@ package com.cmtaro.app.karigmailapi;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         btNext = findViewById(R.id.bt_next);
         edEmail = findViewById(R.id.email);
         edPassword = findViewById(R.id.password);
-        btTemplate = findViewById(R.id.template);
 
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,16 +32,12 @@ public class MainActivity extends AppCompatActivity {
                 String email = edEmail.getText().toString().trim();
                 String password = edPassword.getText().toString().trim();
 
-                Intent intent = new Intent(MainActivity.this, EmailActivity.class);
-                intent.putExtra("email",email);
-                intent.putExtra("password", password);
-                startActivity(intent);
-            }
-        });
+                SharedPreferences preferences = getSharedPreferences("personal_data",MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("email",email);
+                editor.putString("password", password);
+                editor.commit();
 
-        btTemplate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
                 startActivity(intent);
             }

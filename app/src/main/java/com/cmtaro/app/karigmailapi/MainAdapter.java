@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +50,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         database = RoomDB.getInstance(context);
 
         // Set Text on text View
-        // ここでセットするといい
         holder.textView.setText(data.getSubject());
 
 
@@ -128,6 +130,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             }
         });
 
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // vでOKです
+                Context context = v.getContext();
+                Intent intent = new Intent(context, EmailActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -141,6 +153,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         // initialize valiable
         TextView textView, subjectView;
         ImageView btEdit, btDelete;
+        LinearLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -148,6 +161,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             textView = itemView.findViewById(R.id.text_view);
             btEdit = itemView.findViewById(R.id.bt_edit);
             btDelete = itemView.findViewById(R.id.bt_delete);
+            container = itemView.findViewById(R.id.container);
         }
     }
 }
