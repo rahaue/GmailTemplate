@@ -2,6 +2,8 @@ package com.cmtaro.app.karigmailapi;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,9 +50,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         database = RoomDB.getInstance(context);
 
         // Set Text on text View
+        // ここでセットされています
         holder.textView.setText(data.getText());
 
-
+        // 特定のボタンが押された時の処理
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,16 +70,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 dialog.setContentView(R.layout.dialog_update);
                 // initialize width
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
-
                 // height
                 int height = WindowManager.LayoutParams.WRAP_CONTENT;
-
                 // Set Layout
                 dialog.getWindow().setLayout(width, height);
-
                 // Show Dialog
                 dialog.show();
-
                 // initialize and assign
                 EditText editText = dialog.findViewById(R.id.edit_text);
                 Button btUpdate = dialog.findViewById(R.id.bt_update);
@@ -103,6 +103,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                         notifyDataSetChanged();
                     }
                 });
+            }
+        });
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // vでOKです
+                Context context = v.getContext();
+                Intent intent = new Intent(context, EmailActivity.class);
+                context.startActivity(intent);
             }
         });
 
@@ -136,13 +146,26 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         // initialize valiable
         TextView textView;
         ImageView btEdit, btDelete;
+        LinearLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // ここで元の classのようなことができる
             textView = itemView.findViewById(R.id.text_view);
             btEdit = itemView.findViewById(R.id.bt_edit);
             btDelete = itemView.findViewById(R.id.bt_delete);
+            container = itemView.findViewById(R.id.container);
+
+//            // 画面遷移はここでやりましょう
+//            container.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context = itemView.getContext();
+//                    Intent intent = new Intent(context, EmailActivity.class);
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 }
